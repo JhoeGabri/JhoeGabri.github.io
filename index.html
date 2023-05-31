@@ -9,23 +9,17 @@
     <div id="container">
       <video id="videoElement" autoplay></video>
       <button id="captureButton">Capturar</button>
-      <label for="cameraSelect">Seleccionar cámara:</label>
-      <select id="cameraSelect">
-        <option value="user">Frontal</option>
-        <option value="environment">Trasera</option>
-      </select>
     </div>
 
     <script>
       const video = document.getElementById('videoElement');
       const captureButton = document.getElementById('captureButton');
-      const cameraSelect = document.getElementById('cameraSelect');
 
       let activeStream = null;
 
       function startCamera() {
         const constraints = {
-          video: { facingMode: cameraSelect.value }
+          video: { facingMode: 'environment' } // Acceder directamente a la cámara trasera
         };
 
         navigator.mediaDevices.getUserMedia(constraints)
@@ -63,9 +57,6 @@
       }
 
       captureButton.addEventListener('click', captureImage);
-      cameraSelect.addEventListener('change', startCamera);
-
-      // Iniciar la cámara con la opción seleccionada por defecto
       startCamera();
     </script>
   </body>
