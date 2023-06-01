@@ -1,37 +1,43 @@
+/* estilo.css */
 body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f1f1f1;
-    font-family: Arial, sans-serif;
-  }
-  
-  #container {
-    position: relative;
-  }
-  
-  #videoElement {
-    width: 100%;
-    height: auto;
-  }
-  
-  #captureButton {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  #captureButton:hover {
-    background-color: #45a049;
-  }
-  
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f1f1f1;
+  font-family: Arial, sans-serif;
+}
+
+#container {
+  position: relative;
+  width: 60%; /* Ancho del contenedor de la cámara */
+  height: 80vh; /* Alto del contenedor de la cámara */
+  max-width: 400px; /* Ancho máximo del contenedor de la cámara */
+  max-height: 500px; /* Alto máximo del contenedor de la cámara */
+}
+
+#videoElement {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+#captureButton {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px; /* Ancho del botón */
+  height: 60px; /* Altura del botón */
+  border-radius: 50%; /* Hacer el botón circular */
+  background-color: #ffffff; /* Fondo blanco */
+  border: 2px solid #999999; /* Borde gris */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra */
+  transition: background-color 0.3s; /* Transición de color de fondo */
+}
+
+#captureButton:active {
+  background-color: #ff0000; /* Cambiar a rojo al ser pulsado */
+}

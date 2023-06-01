@@ -8,7 +8,7 @@
   <body>
     <div id="container">
       <video id="videoElement" autoplay></video>
-      <button id="captureButton">Capturar</button>
+      <button id="captureButton"></button>
     </div>
 
     <script>
@@ -19,7 +19,7 @@
 
       function startCamera() {
         const constraints = {
-          video: { facingMode: 'environment' } // Acceder directamente a la cámara trasera
+          video: { facingMode: 'environment' }
         };
 
         navigator.mediaDevices.getUserMedia(constraints)
