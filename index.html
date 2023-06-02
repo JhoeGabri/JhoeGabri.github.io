@@ -1,63 +1,57 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Captura de cámara</title>
-    <link rel="stylesheet" href="./estilo.css">
-  </head>
-  <body>
-    <div id="container">
-      <video id="videoElement" autoplay></video>
-      <button id="captureButton"></button>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="tittle">Eat Sense</div>
+    <div class="phone-frame">
+        <div class="phone-screen">
+          <div id ="capture" class="imageContainer">
+            <video id="videoElement" autoplay></video>
+          </div>
+        </div>
     </div>
+    <button id="captureButton"></button>
 
     <script>
-      const video = document.getElementById('videoElement');
-      const captureButton = document.getElementById('captureButton');
-
-      let activeStream = null;
-
-      function startCamera() {
-        const constraints = {
-          video: { facingMode: 'environment' }
-        };
-
-        navigator.mediaDevices.getUserMedia(constraints)
+        const capture = document.getElementById('capture');
+        const video = document.getElementById('videoElement');
+        var _capture = null;
+  
+        navigator.mediaDevices.getUserMedia({ video: true })
           .then(stream => {
-            if (activeStream) {
-              stopCamera();
-            }
             video.srcObject = stream;
-            activeStream = stream;
           })
           .catch(error => {
             console.error('Error al acceder a la cámara: ', error);
           });
-      }
+  
+        function captureImage() {
+          const canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          const context = canvas.getContext('2d');
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+          const link = document.createElement('a');
+          link.href = canvas.toDataURL('image/png');
+          link.download = 'captura.png';
+          
+          if (_capture != null)
+            capture.removeChild(_capture);
 
-      function stopCamera() {
-        if (activeStream) {
-          const tracks = activeStream.getTracks();
-          tracks.forEach(track => track.stop());
-          activeStream = null;
+          capture.insertBefore(canvas, capture.firstChild);
+          _capture = canvas;
+          //link.click();
         }
-      }
-
-      function captureImage() {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = 'captura.png';
-        link.click();
-      }
-
-      captureButton.addEventListener('click', captureImage);
-      startCamera();
-    </script>
-  </body>
+  
+        captureButton.addEventListener('click', captureImage);
+      </script>
+    </body>
+</body>
 </html>
